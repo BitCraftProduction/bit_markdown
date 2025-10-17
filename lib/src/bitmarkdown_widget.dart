@@ -16,18 +16,13 @@ class BitMarkdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lines = data
-        .split('\n')
-        .where((l) => l.trim().isNotEmpty)
-        .map((l) => l.trim())
-        .toList();
+    final elements = MarkdownParser.parseDocument(data);
 
     return ListView.builder(
       shrinkWrap: shrinkWrap,
-      itemCount: lines.length,
+      itemCount: elements.length,
       itemBuilder: (context, index) {
-        final element = MarkdownParser.parse(lines[index]);
-        return element.render();
+        return elements[index].render();
       },
     );
   }

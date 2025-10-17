@@ -1,51 +1,64 @@
-import 'package:bit_markdown/src/renderer.dart';
-import 'package:flutter/material.dart';
-
-abstract class MarkdownElement {
-  Widget render();
-}
-
-class TextElement extends MarkdownElement {
-  final String text;
-  final TextStyle? style;
-
-  TextElement(this.text, {this.style});
-
-  @override
-  Widget render() => MarkdownRenderer.renderText(text, style);
-}
-
-class HeadingElement extends MarkdownElement {
-  final String text;
-  final int level;
-
-  HeadingElement(this.text, this.level);
-
-  @override
-  Widget render() => MarkdownRenderer.renderHeading(text, level);
-}
-
-class ListItemElement extends MarkdownElement {
-  final String text;
-  final bool ordered;
-
-  ListItemElement(this.text, {this.ordered = false});
-
-  @override
-  Widget render() => MarkdownRenderer.renderListItem(text, ordered);
-}
-
-class TableRowElement extends MarkdownElement {
-  final List<String> cells;
-
-  TableRowElement(this.cells);
-
-  @override
-  Widget render() => MarkdownRenderer.renderTableRow(cells);
-}
+import 'package:bit_markdown/src/elements.dart';
 
 class MarkdownParser {
-  static MarkdownElement parse(String line) {
+  // Multiline parser
+  static List<MarkdownElement> parseDocument(String text) {
+    final lines = text.split('\n');
+    final elements = <MarkdownElement>[];
+
+    var i = 0;
+    while (i < lines.length) {
+      final line = lines[i].trim();
+
+      if (line.isEmpty) {
+        i++;
+        continue;
+      }
+
+      // Code block
+      if (line.startsWith('```')) {
+        final language = line.substring(3).trim();
+        final codeLines = <String>[];
+        i++;
+
+        while (i < lines.length && !lines[i].trim().startsWith('```')) {
+          codeLines.add(lines[i]);
+          i++;
+        }
+
+        elements.add(
+          CodeBlockElement(
+            codeLines.join('\n'),
+            language: language.isEmpty ? null : language,
+          ),
+        );
+        i++;
+        continue;
+      }
+
+      // Block Math $$...$$
+      if (line.startsWith('\$\$')) {
+        final mathLines = <String>[];
+        i++;
+        while (i < lines.length && !lines[i].trim().startsWith('\$\$')) {
+          mathLines.add(lines[i]);
+          i++;
+        }
+
+        elements.add(MathBlockElement(mathLines.join('\n').trim()));
+        i++;
+        continue;
+      }
+
+      elements.add(parseLine(line));
+      i++;
+    }
+
+    return elements;
+  }
+
+  // Line by line parser
+  static MarkdownElement parseLine(String line) {
     // Heading
     if (line.startsWith('#')) {
       final level = line.indexOf(' ');
@@ -64,6 +77,11 @@ class MarkdownParser {
       return ListItemElement(line.substring(numMatch.end), ordered: true);
     }
 
+    // Block quote
+    if (line.startsWith('> ')) {
+      return BlockQuoteElement(line.substring(2));
+    }
+
     // Table
     if (line.startsWith('|') && line.endsWith('|')) {
       final cells = line
@@ -72,6 +90,11 @@ class MarkdownParser {
           .map((c) => c.trim())
           .toList();
       return TableRowElement(cells);
+    }
+
+    // Horizontal line
+    if (line.startsWith('---') || line.startsWith('***')) {
+      return HorizontalLine();
     }
 
     // Default text

@@ -25,7 +25,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  bitmarkdown: ^0.0.2
+  bitmarkdown: ^0.0.3
 ```
 
 ## Usage

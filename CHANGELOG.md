@@ -1,3 +1,3 @@
-## 0.0.2
+## 0.0.3
 
-- Initial release of BitMarkdown
+- Code block, Simple Latex Support, BlockQuote, etc.

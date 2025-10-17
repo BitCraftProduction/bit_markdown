@@ -1,5 +1,6 @@
 // lib/src/renderer.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_math_fork/flutter_math.dart';
 
 class MarkdownRenderer {
   static Widget renderHeading(String text, int level) {
@@ -26,11 +27,13 @@ class MarkdownRenderer {
     );
   }
 
+  static Widget renderHorizontalLine() {
+    return Divider(height: 1.0, thickness: 1.0);
+  }
+
   static Widget renderTableRow(List<String> cells) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-      ),
+      decoration: BoxDecoration(border: Border.all(width: 1)),
       child: Row(
         children: cells
             .map(
@@ -46,14 +49,86 @@ class MarkdownRenderer {
     );
   }
 
+  static Widget renderBlockQuote(String text) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8.0),
+      margin: EdgeInsets.symmetric(horizontal: 8.0),
+      decoration: BoxDecoration(border: Border(left: BorderSide(width: 1))),
+      child: Text(text, style: TextStyle(fontStyle: FontStyle.italic)),
+    );
+  }
+
+  static Widget renderCodeBlock(String code, {String? language}) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(width: 1),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (language != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(
+                language,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          Text(
+            code,
+            style: const TextStyle(fontFamily: 'monospace', fontSize: 14),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static Widget renderMathBlock(String expression) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 12),
+      alignment: Alignment.center,
+      child: Math.tex(
+        expression,
+        textStyle: const TextStyle(fontSize: 20),
+        mathStyle: MathStyle.display,
+      ),
+    );
+  }
+
+  static Widget renderMathInline(String expression) {
+    return Math.tex(
+      expression,
+      textStyle: const TextStyle(fontSize: 16),
+      mathStyle: MathStyle.text,
+    );
+  }
+
   static Widget renderText(String text, TextStyle? style) {
     final spans = <TextSpan>[];
     var i = 0;
 
     while (i < text.length) {
-      // Bold
+      // Bold (** or __)
       if (text.startsWith('**', i)) {
         final end = text.indexOf('**', i + 2);
+        if (end != -1) {
+          spans.add(
+            TextSpan(
+              text: text.substring(i + 2, end),
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          );
+          i = end + 2;
+          continue;
+        }
+      } else if (text.startsWith('__', i)) {
+        final end = text.indexOf('__', i + 2);
         if (end != -1) {
           spans.add(
             TextSpan(
@@ -78,6 +153,35 @@ class MarkdownRenderer {
           );
           i = end + 1;
           continue;
+        }
+      } else if (text.startsWith('_', i) && !text.startsWith('__', i)) {
+        final end = text.indexOf('_', i + 1);
+        if (end != -1) {
+          spans.add(
+            TextSpan(
+              text: text.substring(i + 1, end),
+              style: const TextStyle(fontStyle: FontStyle.italic),
+            ),
+          );
+          i = end + 1;
+          continue;
+        }
+      }
+
+      //Strikethrough
+      if (text.startsWith('~~', i)) {
+        if (text.startsWith('~~', i)) {
+          final end = text.indexOf('~~', i + 2);
+          if (end != -1) {
+            spans.add(
+              TextSpan(
+                text: text.substring(i + 2, end),
+                style: const TextStyle(decoration: TextDecoration.lineThrough),
+              ),
+            );
+            i = end + 2;
+            continue;
+          }
         }
       }
 
