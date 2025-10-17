@@ -3,7 +3,6 @@ import 'package:bit_markdown/bit_markdown.dart';
 
 void main() => runApp(const MyApp());
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -12,10 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'BitMarkdown Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        useMaterial3: true,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
       home: const DemoPage(),
     );
   }
@@ -31,11 +27,7 @@ class DemoPage extends StatefulWidget {
 class _DemoPageState extends State<DemoPage> {
   int _selectedIndex = 0;
 
-  final List<String> _demos = [
-    _basicDemo,
-    _documentDemo,
-    _largeDemo,
-  ];
+  final List<String> _demos = [_basicDemo, _documentDemo, _largeDemo];
 
   final List<String> _titles = [
     'Basic Example',
@@ -54,10 +46,7 @@ class _DemoPageState extends State<DemoPage> {
         padding: const EdgeInsets.all(16.0),
         child: BitMarkdown(
           _demos[_selectedIndex],
-          style: const TextStyle(
-            fontSize: 16,
-            color: Colors.black87,
-          ),
+          style: const TextStyle(fontSize: 16, color: Colors.black87),
         ),
       ),
       bottomNavigationBar: NavigationBar(
@@ -192,38 +181,40 @@ For issues or questions:
 // Large Demo (generates 1000+ lines)
 String get _largeDemo {
   final buffer = StringBuffer();
-  
+
   buffer.writeln('# Performance Test Document\n');
-  buffer.writeln('This document contains **1000+ lines** to test performance.\n');
-  
+  buffer.writeln(
+    'This document contains **1000+ lines** to test performance.\n',
+  );
+
   for (int i = 1; i <= 50; i++) {
     buffer.writeln('## Section $i\n');
     buffer.writeln('This is section number **$i** of the document.\n');
     buffer.writeln('### Subsection $i.1\n');
     buffer.writeln('Some *italic* text in subsection $i.1\n');
-    
+
     buffer.writeln('#### List $i\n');
     for (int j = 1; j <= 5; j++) {
       buffer.writeln('- Item $j in section $i');
     }
     buffer.writeln('');
-    
+
     buffer.writeln('#### Numbered List $i\n');
     for (int j = 1; j <= 5; j++) {
       buffer.writeln('$j. Step $j in section $i');
     }
     buffer.writeln('');
-    
+
     if (i % 10 == 0) {
       buffer.writeln('| Section | Status |');
       buffer.writeln('| $i | Complete |');
       buffer.writeln('');
     }
   }
-  
+
   buffer.writeln('---\n');
   buffer.writeln('**End of document.** Total sections: 50\n');
   buffer.writeln('*Scroll performance should still be smooth!*');
-  
+
   return buffer.toString();
 }

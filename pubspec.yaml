@@ -1,6 +1,6 @@
 name: bit_markdown
 description: "BitMarkdown is a minimal, fast, and Flutter-friendly Markdown renderer"
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/BitCraftProduction/bit_markdown.git
 repository: https://github.com/BitCraftProduction/bit_markdown.git
 

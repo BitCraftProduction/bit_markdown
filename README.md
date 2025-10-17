@@ -25,7 +25,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  bitmarkdown: ^0.0.1
+  bitmarkdown: ^0.0.2
 ```
 
 ## Usage
@@ -76,47 +76,6 @@ BitMarkdown uses lazy loading with `ListView.builder`, so it can handle massive 
 - 10,000 lines: Smooth
 - 100,000 lines: Still works
 
-## Extending BitMarkdown
-
-The modular architecture makes it easy to add new features:
-
-### 1. Create a new element in `lib/src/parser.dart`:
-
-```dart
-class CodeBlockElement extends MarkdownElement {
-  final String code;
-  final String? language;
-  
-  CodeBlockElement(this.code, {this.language});
-  
-  @override
-  Widget render() => MarkdownRenderer.renderCodeBlock(code, language);
-}
-```
-
-### 2. Add parsing logic:
-
-```dart
-// In MarkdownParser.parse()
-if (line.startsWith('```')) {
-  return CodeBlockElement(extractCode(line));
-}
-```
-
-### 3. Add renderer:
-
-```dart
-// In MarkdownRenderer
-static Widget renderCodeBlock(String code, String? language) {
-  return Container(
-    padding: EdgeInsets.all(12),
-    color: Colors.black87,
-    child: Text(code, style: TextStyle(fontFamily: 'monospace')),
-  );
-}
-```
-
-That's it! No need to touch existing code.
 
 ## Architecture
 
@@ -144,6 +103,6 @@ MIT License - see LICENSE file
 
 ## Author
 
-Ganesh Kumar
+BitCraft Production
 
 Built with frustration and coffee ☕

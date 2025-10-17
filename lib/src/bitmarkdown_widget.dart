@@ -2,7 +2,6 @@
 import 'package:bit_markdown/src/parser.dart';
 import 'package:flutter/material.dart';
 
-
 class BitMarkdown extends StatelessWidget {
   final String data;
   final TextStyle? style;

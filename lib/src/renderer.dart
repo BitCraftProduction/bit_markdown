@@ -8,10 +8,7 @@ class MarkdownRenderer {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Text(
         text,
-        style: TextStyle(
-          fontSize: size,
-          fontWeight: FontWeight.bold,
-        ),
+        style: TextStyle(fontSize: size, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -36,12 +33,14 @@ class MarkdownRenderer {
       ),
       child: Row(
         children: cells
-            .map((cell) => Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: renderText(cell, null),
-                  ),
-                ))
+            .map(
+              (cell) => Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: renderText(cell, null),
+                ),
+              ),
+            )
             .toList(),
       ),
     );
@@ -56,10 +55,12 @@ class MarkdownRenderer {
       if (text.startsWith('**', i)) {
         final end = text.indexOf('**', i + 2);
         if (end != -1) {
-          spans.add(TextSpan(
-            text: text.substring(i + 2, end),
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ));
+          spans.add(
+            TextSpan(
+              text: text.substring(i + 2, end),
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          );
           i = end + 2;
           continue;
         }
@@ -69,10 +70,12 @@ class MarkdownRenderer {
       if (text.startsWith('*', i) && !text.startsWith('**', i)) {
         final end = text.indexOf('*', i + 1);
         if (end != -1) {
-          spans.add(TextSpan(
-            text: text.substring(i + 1, end),
-            style: const TextStyle(fontStyle: FontStyle.italic),
-          ));
+          spans.add(
+            TextSpan(
+              text: text.substring(i + 1, end),
+              style: const TextStyle(fontStyle: FontStyle.italic),
+            ),
+          );
           i = end + 1;
           continue;
         }

@@ -1,4 +1,3 @@
-
 import 'package:bit_markdown/src/renderer.dart';
 import 'package:flutter/material.dart';
 
@@ -9,9 +8,9 @@ abstract class MarkdownElement {
 class TextElement extends MarkdownElement {
   final String text;
   final TextStyle? style;
-  
+
   TextElement(this.text, {this.style});
-  
+
   @override
   Widget render() => MarkdownRenderer.renderText(text, style);
 }
@@ -19,9 +18,9 @@ class TextElement extends MarkdownElement {
 class HeadingElement extends MarkdownElement {
   final String text;
   final int level;
-  
+
   HeadingElement(this.text, this.level);
-  
+
   @override
   Widget render() => MarkdownRenderer.renderHeading(text, level);
 }
@@ -29,18 +28,18 @@ class HeadingElement extends MarkdownElement {
 class ListItemElement extends MarkdownElement {
   final String text;
   final bool ordered;
-  
+
   ListItemElement(this.text, {this.ordered = false});
-  
+
   @override
   Widget render() => MarkdownRenderer.renderListItem(text, ordered);
 }
 
 class TableRowElement extends MarkdownElement {
   final List<String> cells;
-  
+
   TableRowElement(this.cells);
-  
+
   @override
   Widget render() => MarkdownRenderer.renderTableRow(cells);
 }

@@ -4,7 +4,7 @@ import 'package:bit_markdown/bit_markdown.dart';
 void main() => runApp(const MyApp());
 
 /// MyApp demonstrates how to use the BitMarkdown package.
-/// 
+///
 /// BitMarkdown is a minimal, fast, and Flutter-friendly Markdown renderer
 /// that supports headings, bold/italic text, lists, nested lists, and tables.
 /// It is designed to handle large Markdown content efficiently without converting
@@ -26,8 +26,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(title: const Text('BitMarkdown Demo')),
         body: const Padding(
           padding: EdgeInsets.all(16.0),
-          child: BitMarkdown(
-            '''
+          child: BitMarkdown('''
 # Welcome to BitMarkdown
 
 BitMarkdown is a **minimal** and *fast* Markdown renderer for Flutter. 
@@ -72,8 +71,7 @@ BitMarkdown is a **minimal** and *fast* Markdown renderer for Flutter.
 
 BitMarkdown lets you render Markdown **directly in Flutter** without HTML conversion.
 It is lightweight and perfect for large notes, documentation, or learning apps.
-            '''
-          ),
+            '''),
         ),
       ),
     );
