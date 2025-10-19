@@ -37,10 +37,10 @@ class MarkdownParser {
       }
 
       // Block Math $$...$$
-      if (line.startsWith('\$\$')) {
+      if (line.startsWith(r'$$')) {
         final mathLines = <String>[];
         i++;
-        while (i < lines.length && !lines[i].trim().startsWith('\$\$')) {
+        while (i < lines.length && !lines[i].trim().startsWith(r'$$')) {
           mathLines.add(lines[i]);
           i++;
         }

@@ -1,3 +1,10 @@
+
+## 0.0.4
+
+- Inline and Multiline Latex Support
+
+---
+
 ## 0.0.3
 
 - Code block, Simple Latex Support, BlockQuote, etc.

@@ -207,12 +207,13 @@ class MarkdownRenderer {
       }
 
       // Inline Math
-      if (text.startsWith('\$', i) && !text.startsWith('\$\$', i)) {
-        final end = text.indexOf('\$', i + 1);
+      // Inline Math
+      if (text.startsWith(r'$', i) && !text.startsWith(r'$$', i)) {
+        final end = text.indexOf(r'$', i + 1); // Use raw string here too
         if (end != -1) {
           spans.add(
             WidgetSpan(
-              // alignment: PlaceholderAlignment.middle,
+              alignment: PlaceholderAlignment.middle,
               child: Math.tex(
                 text.substring(i + 1, end),
                 mathStyle: MathStyle.text,
@@ -254,7 +255,7 @@ class MarkdownRenderer {
     final strike = text.indexOf('~~', start);
     if (strike != -1 && strike < pos) pos = strike;
 
-    final inlineMath = text.indexOf('\$', start);
+    final inlineMath = text.indexOf(r'$', start);
     if (inlineMath != -1 && inlineMath < pos) pos = inlineMath;
 
     return pos;

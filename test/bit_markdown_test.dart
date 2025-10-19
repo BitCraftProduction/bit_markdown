@@ -26,10 +26,11 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(title: const Text('BitMarkdown Demo')),
         body: const Padding(
           padding: EdgeInsets.all(16.0),
-          child: BitMarkdown('''
+          // Attention: use r'
+          child: BitMarkdown(r'''
 # Welcome to BitMarkdown
 
-BitMarkdown is a **minimal** and *fast* Markdown renderer for Flutter. 
+BitMarkdown is a **minimal** and *fast* Markdown renderer for Flutter.
 
 ## Features
 
@@ -47,16 +48,12 @@ BitMarkdown is a **minimal** and *fast* Markdown renderer for Flutter.
 
 - Item 1
 - Item 2
-  - Nested Item 2.1
-  - Nested Item 2.2
 - Item 3
 
 ### Ordered List
 
 1. First
 2. Second
-   1. Sub-first
-   2. Sub-second
 3. Third
 
 ### Table
@@ -66,6 +63,16 @@ BitMarkdown is a **minimal** and *fast* Markdown renderer for Flutter.
 | Alice   | 25  |
 | Bob     | 30  |
 | Charlie | 22  |
+
+
+## Latex
+
+$$
+\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
+$$
+
+Another paragraph with inline math: $a^2 + b^2 = c^2$ and some `inline code`.
+
 
 ## Conclusion
 
