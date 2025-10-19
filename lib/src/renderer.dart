@@ -84,7 +84,10 @@ class MarkdownRenderer {
               ),
             Text(
               code,
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 14),
+              style: const TextStyle(
+                fontFamilyFallback: ['Courier', 'monospace'],
+                fontSize: 14,
+              ),
             ),
           ],
         ),
@@ -196,7 +199,7 @@ class MarkdownRenderer {
             TextSpan(
               text: text.substring(i + 1, end),
               style: const TextStyle(
-                fontFamily: 'monospace',
+                fontFamilyFallback: ['Courier', 'monospace'],
                 backgroundColor: Color.fromARGB(255, 230, 230, 230),
               ),
             ),
@@ -206,7 +209,6 @@ class MarkdownRenderer {
         }
       }
 
-      // Inline Math
       // Inline Math
       if (text.startsWith(r'$', i) && !text.startsWith(r'$$', i)) {
         final end = text.indexOf(r'$', i + 1); // Use raw string here too

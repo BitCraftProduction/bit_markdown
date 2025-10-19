@@ -1,3 +1,8 @@
+## 0.0.5
+
+- Top, bottom, left, right child spacing.
+
+---
 
 ## 0.0.4
 
@@ -8,7 +13,6 @@
 ## 0.0.3
 
 - Code block, Simple Latex Support, BlockQuote, etc.
-
 
 ---
 

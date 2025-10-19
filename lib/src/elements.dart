@@ -1,8 +1,16 @@
 import 'package:bit_markdown/bit_markdown.dart';
+import 'package:bit_markdown/src/models/spacing.dart';
 import 'package:flutter/material.dart';
 
 abstract class MarkdownElement {
-  Widget render();
+  Widget render({Spacing? spacing}) {
+    final child = buildWidget();
+    final edgeInsets =
+        spacing?.toEdgeInsets() ?? const EdgeInsets.only(top: 0, bottom: 8);
+    return Padding(padding: edgeInsets, child: child);
+  }
+
+  Widget buildWidget();
 }
 
 class TextElement extends MarkdownElement {
@@ -12,7 +20,7 @@ class TextElement extends MarkdownElement {
   TextElement(this.text, {this.style});
 
   @override
-  Widget render() => MarkdownRenderer.renderText(text, style);
+  Widget buildWidget() => MarkdownRenderer.renderText(text, style);
 }
 
 class HeadingElement extends MarkdownElement {
@@ -22,7 +30,7 @@ class HeadingElement extends MarkdownElement {
   HeadingElement(this.text, this.level);
 
   @override
-  Widget render() => MarkdownRenderer.renderHeading(text, level);
+  Widget buildWidget() => MarkdownRenderer.renderHeading(text, level);
 }
 
 class BlockQuoteElement extends MarkdownElement {
@@ -31,7 +39,7 @@ class BlockQuoteElement extends MarkdownElement {
   BlockQuoteElement(this.text);
 
   @override
-  Widget render() => MarkdownRenderer.renderBlockQuote(text);
+  Widget buildWidget() => MarkdownRenderer.renderBlockQuote(text);
 }
 
 class ListItemElement extends MarkdownElement {
@@ -41,13 +49,12 @@ class ListItemElement extends MarkdownElement {
   ListItemElement(this.text, {this.ordered = false});
 
   @override
-  Widget render() => MarkdownRenderer.renderListItem(text, ordered);
+  Widget buildWidget() => MarkdownRenderer.renderListItem(text, ordered);
 }
 
 class HorizontalLine extends MarkdownElement {
-  HorizontalLine();
   @override
-  Widget render() => MarkdownRenderer.renderHorizontalLine();
+  Widget buildWidget() => MarkdownRenderer.renderHorizontalLine();
 }
 
 class TableRowElement extends MarkdownElement {
@@ -55,28 +62,31 @@ class TableRowElement extends MarkdownElement {
   TableRowElement(this.cells);
 
   @override
-  Widget render() => MarkdownRenderer.renderTableRow(cells);
+  Widget buildWidget() => MarkdownRenderer.renderTableRow(cells);
 }
 
 class CodeBlockElement extends MarkdownElement {
-  CodeBlockElement(this.code, {this.language});
   final String code;
   final String? language;
+  CodeBlockElement(this.code, {this.language});
 
   @override
-  Widget render() => MarkdownRenderer.renderCodeBlock(code, language: language);
+  Widget buildWidget() =>
+      MarkdownRenderer.renderCodeBlock(code, language: language);
 }
 
 class MathBlockElement extends MarkdownElement {
-  MathBlockElement(this.expression);
   final String expression;
+  MathBlockElement(this.expression);
+
   @override
-  Widget render() => MarkdownRenderer.renderMathBlock(expression);
+  Widget buildWidget() => MarkdownRenderer.renderMathBlock(expression);
 }
 
 class MathInlineElement extends MarkdownElement {
-  MathInlineElement(this.expression);
   final String expression;
+  MathInlineElement(this.expression);
+
   @override
-  Widget render() => MarkdownRenderer.renderMathInline(expression);
+  Widget buildWidget() => MarkdownRenderer.renderMathInline(expression);
 }

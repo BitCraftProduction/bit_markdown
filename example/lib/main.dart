@@ -47,6 +47,7 @@ class _DemoPageState extends State<DemoPage> {
         child: BitMarkdown(
           _demos[_selectedIndex],
           style: const TextStyle(fontSize: 16, color: Colors.black87),
+          spacing: Spacing.only(top: 8.0, bottom: 8.0, left: 8.0, right: 8.0),
         ),
       ),
       bottomNavigationBar: NavigationBar(

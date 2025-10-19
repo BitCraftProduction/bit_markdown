@@ -21,6 +21,8 @@ BitMarkdown is a minimal, fast, and Flutter-friendly Markdown renderer that allo
 - Block math (`$$...$$`)
 - and more...
 
+> Only a subset of Markdown is supported. Nested lists, links, images, etc. are not supported. We're working on them.
+
 ## Installation
 
 Add this to your `pubspec.yaml`:
@@ -58,7 +60,15 @@ $$
 
 | Col A | Col B |
 | 1 | 2 |
-        '''),
+        ''',
+        style: const TextStyle(fontSize: 16, color: Colors.black87),
+        spacing: Spacing.only(
+          top: 8.0,
+          bottom: 8.0,
+          left: 8.0,
+          right: 8.0
+        ),
+        ),
       ),
     );
   }
