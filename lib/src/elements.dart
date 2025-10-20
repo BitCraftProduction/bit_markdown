@@ -1,5 +1,4 @@
 import 'package:bit_markdown/bit_markdown.dart';
-import 'package:bit_markdown/src/models/spacing.dart';
 import 'package:flutter/material.dart';
 
 abstract class MarkdownElement {
@@ -89,4 +88,15 @@ class MathInlineElement extends MarkdownElement {
 
   @override
   Widget buildWidget() => MarkdownRenderer.renderMathInline(expression);
+}
+
+class ImageElement extends MarkdownElement {
+  final String alt;
+  final String url;
+  final String? title;
+
+  ImageElement(this.alt, this.url, {this.title});
+  @override
+  Widget buildWidget() =>
+      MarkdownRenderer.renderImage(url, altText: alt, title: title);
 }

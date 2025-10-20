@@ -115,6 +115,23 @@ class MarkdownRenderer {
     );
   }
 
+  static Widget renderImage(String url, {String? altText, String? title}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Tooltip(
+        message: title ?? '',
+        child: Image.network(
+          url,
+          errorBuilder: (context, error, stackTrace) {
+            return altText != null
+                ? Text(altText)
+                : const Icon(Icons.broken_image, size: 48);
+          },
+        ),
+      ),
+    );
+  }
+
   static Widget renderText(String text, TextStyle? style) {
     final spans = <InlineSpan>[];
     var i = 0;

@@ -29,7 +29,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  bitmarkdown: ^0.0.4
+  bitmarkdown: ^0.0.5
 ```
 
 ## Usage
@@ -55,11 +55,9 @@ $$
 \int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
 $$
 
-- Item 1
-- Item 2
 
-| Col A | Col B |
-| 1 | 2 |
+![Ghost Avatar](https://avatars.githubusercontent.com/u/99251680?v=4)
+
         ''',
         style: const TextStyle(fontSize: 16, color: Colors.black87),
         spacing: Spacing.only(

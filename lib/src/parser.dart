@@ -97,6 +97,16 @@ class MarkdownParser {
       return HorizontalLine();
     }
 
+    final imageMatch = RegExp(
+      r'!\[(.*?)\]\((.*?)(?:\s+"(.*?)")?\)',
+    ).firstMatch(line);
+    if (imageMatch != null) {
+      final alt = imageMatch.group(1) ?? '';
+      final url = imageMatch.group(2) ?? '';
+      final title = imageMatch.group(3);
+      return ImageElement(alt, url, title: title);
+    }
+
     // Default text
     return TextElement(line);
   }
