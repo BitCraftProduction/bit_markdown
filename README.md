@@ -21,10 +21,10 @@ BitMarkdown is a minimal, fast, and Flutter-friendly Markdown renderer that allo
 - Tables (`| cell | cell |`)
 - Inline math (`$...$`)
 - Block math (`$$...$$`)
-- Image
+- Image, Link
 - and more...
 
-> Only a subset of Markdown is supported. Nested lists, links etc. are not supported. We're working on them.
+> Only a subset of Markdown is supported. Nested lists, etc. are not supported. We're working on them.
 
 ## Installation
 
@@ -32,7 +32,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  bitmarkdown: ^0.0.5
+  bitmarkdown: ^0.0.6
 ```
 
 ## Usage
@@ -110,6 +110,7 @@ BitMarkdown uses lazy loading with `ListView.builder`, so it can handle massive 
 lib/
 ├── bit_markdown.dart         # Main export
 └── src/
+    ├── models/                  # Models
     ├── bitmarkdown_widget.dart  # Main widget
     ├── parser.dart              # Parsing logic
     └── renderer.dart            # Rendering logic
@@ -131,5 +132,5 @@ MIT License - see LICENSE file
 
 ## Author
 
-BitCraft Production
+[BitCraft Production](https://www.bitcraftproduction.com) <br/>
 Built with frustration and coffee ☕

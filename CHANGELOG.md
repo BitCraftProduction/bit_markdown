@@ -1,19 +1,21 @@
+## 0.0.6
+
+- Link, Image Support
+---
+
 ## 0.0.5
 
 - Top, bottom, left, right child spacing.
-
 ---
 
 ## 0.0.4
 
 - Inline and Multiline Latex Support
-
 ---
 
 ## 0.0.3
 
 - Code block, Simple Latex Support, BlockQuote, etc.
-
 ---
 
 ## 0.0.2
