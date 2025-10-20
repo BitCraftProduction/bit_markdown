@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 
 class MarkdownRenderer {
+  static void Function(String url)? onLinkTap;
+
   static Widget renderHeading(String text, int level) {
     final size = 24.0 - (level * 2);
     return Padding(
@@ -127,6 +129,32 @@ class MarkdownRenderer {
                 ? Text(altText)
                 : const Icon(Icons.broken_image, size: 48);
           },
+        ),
+      ),
+    );
+  }
+
+  static Widget renderLink(
+    String text,
+    String url, {
+    String? title,
+    void Function(String url)? onTap,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Tooltip(
+        message: title ?? '',
+        child: GestureDetector(
+          onTap: () {
+            if (onTap != null) onTap(url);
+          },
+          child: Text(
+            text,
+            style: const TextStyle(
+              color: Colors.blue,
+              decoration: TextDecoration.underline,
+            ),
+          ),
         ),
       ),
     );

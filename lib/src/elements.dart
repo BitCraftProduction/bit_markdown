@@ -100,3 +100,16 @@ class ImageElement extends MarkdownElement {
   Widget buildWidget() =>
       MarkdownRenderer.renderImage(url, altText: alt, title: title);
 }
+
+class LinkElement extends MarkdownElement {
+  final String text;
+  final String url;
+  final String? title;
+  void Function(String url)? onTap;
+
+  LinkElement(this.text, this.url, {this.title, this.onTap});
+
+  @override
+  Widget buildWidget() =>
+      MarkdownRenderer.renderLink(text, url, title: title, onTap: onTap);
+}

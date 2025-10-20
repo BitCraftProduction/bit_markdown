@@ -97,6 +97,7 @@ class MarkdownParser {
       return HorizontalLine();
     }
 
+    // Image ![alt](url "title")
     final imageMatch = RegExp(
       r'!\[(.*?)\]\((.*?)(?:\s+"(.*?)")?\)',
     ).firstMatch(line);
@@ -105,6 +106,17 @@ class MarkdownParser {
       final url = imageMatch.group(2) ?? '';
       final title = imageMatch.group(3);
       return ImageElement(alt, url, title: title);
+    }
+
+    // Link [text](url "title")
+    final linkMatch = RegExp(
+      r'\[(.*?)\]\((.*?)(?:\s+"(.*?)")?\)',
+    ).firstMatch(line);
+    if (linkMatch != null) {
+      final text = linkMatch.group(1) ?? '';
+      final url = linkMatch.group(2) ?? '';
+      final title = linkMatch.group(3);
+      return LinkElement(text, url, title: title);
     }
 
     // Default text

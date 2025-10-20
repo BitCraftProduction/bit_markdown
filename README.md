@@ -60,15 +60,21 @@ $$
 
 
 ![Ghost Avatar](https://avatars.githubusercontent.com/u/99251680?v=4)
+[BitMarkdwon Link](https://pub.dev/packages/bit_markdown)
 
-        ''',
-        style: const TextStyle(fontSize: 16, color: Colors.black87),
-        spacing: Spacing.only(
-          top: 8.0,
-          bottom: 8.0,
-          left: 8.0,
-          right: 8.0
-        ),
+''',
+          spacing: Spacing.only(
+            top: 8.0,
+            bottom: 8.0,
+            left: 8.0,
+            right: 8.0
+          ),
+          style: TextStyle(
+            color: Colors.black
+          ),
+          onLinkTap: (url) {
+            // TODO: Create LaunchUrl(url)
+          },
         ),
       ),
     );
