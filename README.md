@@ -10,7 +10,7 @@ BitMarkdown is a minimal, fast, and Flutter-friendly Markdown renderer that allo
 - **Lightweight** - Only ~300 lines of code
 - **LaTeX Support** - Render inline and block math directly in Flutter widgets
 
-![BitMarkdown Demo](/assets/bitmarkdown.png)
+![BitMarkdown Demo](https://raw.githubusercontent.com/BitCraftProduction/bit_markdown/main/assets/bitmarkdown.png)
 
 ## Supported Markdown
 
